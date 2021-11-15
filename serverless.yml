@@ -14,5 +14,5 @@ resources:
   FileBucket:
     Type: AWS::S3::Bucket
     Properties: 
-      BucketName: ${self.custom.fileUploadBucketName}
+      BucketName: ${self:custom.fileUploadBucketName}
       AccessControl: PublicRead
