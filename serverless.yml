@@ -7,12 +7,12 @@ provider:
   region: ap-south-1
 
 custom:
-  fileUploadBucketName: s3-api-testbucket
+  fileUploadBucketName: s3-api-testbucket-1213131
 
 resources:
  Resources:
   FileBucket:
     Type: AWS::S3::Bucket
     Properties: 
-      BucketName: s3-api-testbucket
+      BucketName: s3-api-testbucket-1213131
       AccessControl: PublicRead
