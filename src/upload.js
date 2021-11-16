@@ -1,6 +1,8 @@
 
 const AWS = require("aws-sdk");
+//const aws_sns = require("aws-sdk/clients/sns");
 const s3 = new AWS.S3();
+const sns = new AWS.SNS();
 
 const BUCKET_NAME = process.env.FILE_UPLOAD_BUCKET_NAME;
 
@@ -13,6 +15,8 @@ module.exports.handler = async (event) => {
         body: JSON.stringify({ message: "Successfully uploaded file to S3!" }),
     };
 
+
+    
 
     try {
         const parsedBody = JSON.parse(event.body);
@@ -29,6 +33,14 @@ module.exports.handler = async (event) => {
         const uploadResult = await s3.upload(params).promise();
 
         response.body = JSON.stringify({ message: "Successfully uploaded file to s3!", uploadResult });
+
+        // SNS BLOCK
+        const sns_params = {
+            Message: eventText,
+            Subject: "Send SNS when Lambda executes succesfully",
+            TopicArn: "arn:aws:sns:ap-south-1:485693203213:LambdaCall"
+        };
+        sns.publish(sns_params, "SuccessCode");
     
     } catch(e) {
         console.error(e);
