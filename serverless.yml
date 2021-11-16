@@ -20,14 +20,14 @@ functions:
     timeout: 60 #Seconds
     memorySize: 128 #Mbs
     events: 
-    - http:
-        path: images
-        method: POST
+      - http:
+         path: images
+         method: POST
     iamRoleStatements: 
       - Effect: Allow
         Action: 
           - "s3:Put*"
-        Resources: arn:aws:s3:::s3-api-testbucket-1213131/*
+        Resource: arn:aws:s3:::s3-api-testbucket-1213131/*
     environment:
       FILE_UPLOAD_BUCKET_NAME: s3-api-testbucket-1213131
       
