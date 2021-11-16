@@ -6,8 +6,31 @@ provider:
   stage: dev
   region: ap-south-1
 
+plugins:
+  - serverless-iam-role-per-function
+
 custom:
   fileUploadBucketName: s3-api-testbucket-1213131
+
+functions:
+  s3FileUploader:
+    handler: src/upload.handler
+    name: s3-file-uploader
+    description: Function to call lambda that uploads file on s3
+    timeout: 60 #Seconds
+    memorySize: 128 #Mbs
+    events: 
+    - http:
+        path: images
+        method: POST
+    iamRoleStatements: 
+      - Effect: Allow
+        Action: 
+          - "s3:Put*"
+        Resources: arn:aws:s3:::s3-api-testbucket-1213131/*
+    environment:
+      FILE_UPLOAD_BUCKET_NAME: s3-api-testbucket-1213131
+      
 
 resources:
  Resources:
