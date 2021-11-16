@@ -10,7 +10,7 @@ module.exports.handler = async (event) => {
     const response = {
         isBase64Encoded: false,
         statusCode: 200,
-        body: JSON.stringify({ message: "Successfully uploaded file to S3" }),
+        body: JSON.stringify({ message: "Successfully uploaded file to S3!" }),
     };
 
 
@@ -28,7 +28,7 @@ module.exports.handler = async (event) => {
 
         const uploadResult = await s3.upload(params).promise();
 
-        response.body = JSON.stringify({ message: "Successfully uploaded file to s3", uploadResult });
+        response.body = JSON.stringify({ message: "Successfully uploaded file to s3!", uploadResult });
     
     } catch(e) {
         console.error(e);
